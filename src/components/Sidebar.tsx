@@ -86,7 +86,7 @@ export const Sidebar: React.FC = () => {
   return (
     <aside
       aria-label="Primary Facility Navigation"
-      className={`flex flex-col shrink-0 border-r border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 select-none ${
+      className={`h-screen flex flex-col shrink-0 border-r border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 select-none ${
         sidebarCollapsed ? 'w-18' : 'w-[268px]'
       }`}
     >
@@ -97,8 +97,12 @@ export const Sidebar: React.FC = () => {
           onClick={() => setActiveModule('dashboard')}
           className="flex items-center gap-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg overflow-hidden"
         >
-          <div className="w-9 h-9 rounded-lg bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white shrink-0">
-            <Building2 className="w-5 h-5" />
+          <div className="w-9 h-9 rounded-lg bg-slate-900 dark:bg-slate-800 border border-slate-700/50 flex items-center justify-center p-1.5 text-white shrink-0 shadow-sm overflow-hidden">
+            <img
+              src="/syntor-it-logo/PNG/logo.png"
+              alt="Syntor IT"
+              className="w-full h-full object-contain"
+            />
           </div>
           {!sidebarCollapsed && (
             <div className="min-w-0">

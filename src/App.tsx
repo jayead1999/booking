@@ -14,7 +14,7 @@ import { ClassroomsView } from './components/ClassroomsView';
 import { MasterDirectoryView } from './components/MasterDirectoryView';
 import { SettingsView } from './components/SettingsView';
 import { BookingSlipModal } from './components/BookingSlipModal';
-import { X, Building2 } from 'lucide-react';
+import { X, Building2, Globe, ExternalLink } from 'lucide-react';
 import { ActiveModule } from './types/facility';
 
 const MOBILE_NAV_LINKS: { id: ActiveModule; label: string }[] = [
@@ -39,9 +39,9 @@ const FacilityAdminShell: React.FC = () => {
 
   return (
     <div className={theme === 'dark' ? 'dark' : ''}>
-      <div className="min-h-screen flex bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
-      {/* Desktop Collapsible Sidebar */}
-      <div className="hidden lg:flex">
+      <div className="h-screen flex bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 overflow-hidden">
+      {/* Desktop Fixed Collapsible Sidebar */}
+      <div className="hidden lg:flex shrink-0 h-screen sticky top-0 z-30">
         <Sidebar />
       </div>
 
@@ -57,8 +57,12 @@ const FacilityAdminShell: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center">
-                    <Building2 className="w-4 h-4" />
+                  <div className="w-8 h-8 rounded-lg bg-slate-900 dark:bg-slate-800 border border-slate-700/50 flex items-center justify-center p-1 text-white shadow-sm overflow-hidden">
+                    <img
+                      src="/syntor-it-logo/PNG/logo.png"
+                      alt="Syntor IT"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <span className="font-display font-bold text-base text-slate-900 dark:text-slate-100">
                     Syntor It
@@ -103,37 +107,71 @@ const FacilityAdminShell: React.FC = () => {
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col h-screen min-w-0 overflow-hidden">
         <TopBar onMobileMenuToggle={() => setMobileDrawerOpen(true)} />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1440px] w-full mx-auto">
-          {activeModule === 'dashboard' && <DashboardView />}
-          {activeModule === 'dormitory' && <DormitoryView />}
-          {activeModule === 'meeting' && <MeetingRoomsView />}
-          {activeModule === 'classrooms' && <ClassroomsView />}
-          {activeModule === 'directory' && <MasterDirectoryView />}
-          {activeModule === 'settings' && <SettingsView />}
+        {/* Full-width scrollable viewport: scrollbar aligns to the far right edge of the screen */}
+        <main className="flex-1 overflow-y-auto min-h-0 w-full">
+          <div className="p-4 sm:p-6 lg:p-8 max-w-[1440px] w-full mx-auto">
+            {activeModule === 'dashboard' && <DashboardView />}
+            {activeModule === 'dormitory' && <DormitoryView />}
+            {activeModule === 'meeting' && <MeetingRoomsView />}
+            {activeModule === 'classrooms' && <ClassroomsView />}
+            {activeModule === 'directory' && <MasterDirectoryView />}
+            {activeModule === 'settings' && <SettingsView />}
+          </div>
         </main>
 
-        <footer className="px-4 sm:px-6 lg:px-8 py-4 border-t border-slate-200/70 dark:border-slate-800/80 text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-2">
-          <span>
-            Syntor It Office Facility & Booking Management System · In-Memory Ledger & Overlap Protection
-          </span>
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => setActiveModule('directory')}
-              className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+        {/* Fixed Footer */}
+        <footer className="shrink-0 z-20 px-4 sm:px-6 lg:px-8 py-3 border-t border-slate-200/80 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-between gap-3 shadow-[0_-2px_10px_rgba(0,0,0,0.03)] dark:shadow-[0_-2px_10px_rgba(0,0,0,0.2)]">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-semibold text-slate-800 dark:text-slate-200">
+              Syntor IT Facility Management
+            </span>
+            <span className="hidden sm:inline">·</span>
+            <span>All rights reserved.</span>
+            <span className="hidden sm:inline">·</span>
+            <span>
+              Developed by{' '}
+              <a
+                href="https://syntorit.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+              >
+                Syntor IT
+              </a>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 flex-wrap">
+            <a
+              href="https://syntorit.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 underline underline-offset-2 transition-colors"
             >
-              Master Ledger
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveModule('settings')}
-              className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
-            >
-              Tariff Settings
-            </button>
+              <Globe className="w-3.5 h-3.5" />
+              <span>www.syntorit.com</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">|</span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setActiveModule('directory')}
+                className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+              >
+                Master Ledger
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveModule('settings')}
+                className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors"
+              >
+                Tariff Settings
+              </button>
+            </div>
           </div>
         </footer>
       </div>

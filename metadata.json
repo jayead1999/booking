@@ -1,0 +1,8 @@
+{
+  "name": "Syntor It Facility & Booking Management",
+  "description": "Enterprise office facility, dormitory allocation, meeting venue, and classroom scheduling management system with live billing ledger.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
